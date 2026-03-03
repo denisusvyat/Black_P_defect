@@ -1,0 +1,300 @@
+\documentclass[aip,jcp,reprint]{revtex4-2}
+
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Application of the aperiodic defect model to a negatively charged vacancy in phosphorene}
+
+ \author{Charlotte Rickert}
+ \affiliation{Institut f\"ur Chemie, Humboldt-Universit\"at zu Berlin, Brook-Taylor-Str. 2, Berlin 12489, Germany}
+ \affiliation{Max Planck Institute for Solid State Research, Heisenbergstr. 1, 70569 Stuttgart, Germany}
+
+ \author{Lily Barta}
+ \affiliation{Institut f\"ur Chemie, Humboldt-Universit\"at zu Berlin, Brook-Taylor-Str. 2, Berlin 12489, Germany}
+ \affiliation{Max Planck Institute for Solid State Research, Heisenbergstr. 1, 70569 Stuttgart, Germany}
+
+ 
+ \author{Ernst-Christian Flach}
+ \affiliation{Institut f\"ur Chemie, Humboldt-Universit\"at zu Berlin, Brook-Taylor-Str. 2, Berlin 12489, Germany}
+
+ 
+\author{D. Kats}%
+\affiliation{Max Planck Institute for Solid State Research, Heisenbergstr. 1, 70569 Stuttgart, Germany}%
+
+ 
+ \author{D. Usvyat}
+ \affiliation{Institut f\"ur Chemie, Humboldt-Universit\"at zu Berlin, Brook-Taylor-Str. 2, Berlin 12489, Germany}
+ \email{denis.usvyat@hu-berlin.de}
+
+ 
+
+\date{\today}
+
+\begin{abstract}
+  Point defects critically influence the structural and electronic properties of two-dimensional materials.
+  %In phosphorene, single vacancies reconstruct into a 5–9 defect geometry that introduces localized in-gap states. Traditional density functional theory (DFT) provides structural insight, but accurate treatment of correlation—especially for charged defect states—remains challenging.
+
+%Here, we investigate neutral and negatively charged vacancies in phosphorene using an aperiodic defect model: an HF-embedded cluster for the environment and a correlated coupled cluster treatment of the defect-centered fragment. Optimized 5–9 geometries are obtained from periodic B3LYP-D3 calculations on a $3\times4$ supercell using the pob-TZVP-rev2 basis set within \textsc{CRYSTAL}. Energetics, defect levels, and charge localization are analyzed, highlighting the importance of high-level correlated descriptions tailored to defect physics.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Two-dimensional (2D) phosphorene has attracted intense interest due to its semiconducting direct band gap and high carrier mobility. However, intrinsic defects such as single vacancies significantly alter its properties, acting as scattering centers, charge traps, or dopants. Vacancies are also implicated in enhanced chemical reactivity and degradation mechanisms, such as oxidation and humidity-driven deterioration.
+
+**Previous computational studies** have comprehensively characterized point defects in phosphorene. Early first-principles investigations revealed a variety of vacancy and reconstructed configurations with relatively low formation energies compared to other 2D materials, such as graphene or silicene \cite{HuYang2015_JPCCdefects}. The single vacancy commonly relaxes into a reconstructed 5–9 structure introducing mid-gap states, sometimes magnetic or acceptor-like in nature \cite{HuYang2015_JPCCdefects, PhysRevB.91.045433}. Density functional theory (DFT) combined with many-body GW corrections has further shown that vacancy defects have low formation energies (0.9–1.6\,eV) and can explain p-type conductivity in phosphorene \cite{PhysRevMaterials.4.054004}. Charged vacancy states were predicted to be stable in $-1$ charge configurations, significantly modifying local geometry and reactivity \cite{Zhan2019_JPCCvacancies}. DFT-based molecular dynamics and neural-network potentials have also studied vacancy mobility, showing that monovacancies are highly itinerant—especially along the zigzag direction—leading to coalescence into energetically favorable divacancies \cite{JPhysChemC.3c05713}.
+
+**Experimental observations** of monovacancies remain challenging due to rapid diffusion and coalescence, although advanced microscopy has begun to resolve individual vacancy clusters. Vacancies also correlate with mechanical degradation; for example, molecular dynamics studies indicate that even low vacancy concentrations substantially degrade fracture strength \cite{Sha2016_Nanotechnology}. Vacancy sites preferentially serve as adsorption and reaction centers for atmospheric species such as O$_2$, consistent with rapid phosphorene degradation seen experimentally \cite{Kistanov2016_arXivoxidation}.
+
+Despite the wealth of DFT-based studies, the accurate description of charged defect states and associated correlation effects beyond semi-local or hybrid functionals remains an open challenge. Standard periodic approaches also suffer from finite-size charge correction issues. Wavefunction-based methods, such as coupled cluster theory, provide systematic inclusion of electron correlation but are computationally prohibitive for large supercells. Embedding strategies offer a promising route by enabling high-level correlated treatment of the defect region within a lower-level representation of the extended environment.
+
+Here, we combine a periodic DFT-optimized 5–9 reconstructed geometry with an aperiodic HF-embedded defect cluster treated at the coupled cluster level to accurately describe neutral and negatively charged vacancies in phosphorene.
+
+\section{Theory}
+
+\subsection{Aperiodic Defect Model}
+
+Below is a LaTeX-ready theory section written in a style appropriate for The Journal of Chemical Physics and based on the formal framework of the aperiodic defect model (ADM) introduced in:
+
+    Lavroff, R., et al., J. Chem. Phys. 163, 084105 (2025).
+
+The formulation is written carefully to match JCP standards (clear Hamiltonian definition, operator notation, and formal partitioning). You can insert this directly into your manuscript under \section{Theory} or as a dedicated subsection.
+
+\section{Theory: Aperiodic Defect Model}
+
+\subsection{Conceptual Framework}
+
+Traditional periodic supercell approaches to point defects 
+implicitly replicate the defect throughout the crystal lattice. 
+This artificial periodicity introduces spurious defect--defect 
+interactions that converge slowly with respect to supercell size, 
+particularly for charged or open-shell states where long-range 
+Coulomb interactions dominate.
+
+The aperiodic defect model (ADM), recently introduced by 
+Lavroff \textit{et al.},\cite{Lavroff2025_JCP_ADM} 
+circumvents these limitations by embedding a single, 
+non-periodic defect fragment into the exact mean-field 
+environment of the pristine periodic host. 
+In this approach, the crystalline environment remains 
+strictly periodic and defect-free, while the defect 
+itself is treated locally and aperiodically.
+
+\subsection{Pristine Host Hamiltonian}
+
+Consider a perfect crystalline solid described by a periodic 
+mean-field Hamiltonian
+\begin{equation}
+\hat{H}^{\mathrm{host}} 
+= \hat{T} + \hat{V}_{\mathrm{nuc}}^{\mathrm{host}} 
++ \hat{V}_{\mathrm{el}}^{\mathrm{host}}[\rho^{\mathrm{host}}],
+\end{equation}
+where $\hat{T}$ is the kinetic energy operator, 
+$\hat{V}_{\mathrm{nuc}}^{\mathrm{host}}$ is the nuclear potential 
+of the pristine lattice, and 
+$\hat{V}_{\mathrm{el}}^{\mathrm{host}}[\rho^{\mathrm{host}}]$ 
+is the electronic mean-field potential obtained from 
+the periodic host electron density $\rho^{\mathrm{host}}$.
+
+A periodic Hartree--Fock or Kohn--Sham calculation 
+on the defect-free crystal yields $\rho^{\mathrm{host}}$, 
+from which the embedding potential is defined as
+
+\begin{equation}
+V^{\mathrm{emb}}(\mathbf{r}) 
+= V_{\mathrm{nuc}}^{\mathrm{host}}(\mathbf{r})
++ V_{\mathrm{el}}^{\mathrm{host}}[\rho^{\mathrm{host}}](\mathbf{r}).
+\end{equation}
+
+Importantly, this potential contains the full infinite 
+crystalline electrostatic and exchange (or exchange--correlation) 
+field of the host and is completely independent of the defect.
+
+\subsection{Construction of the Aperiodic Defect Hamiltonian}
+
+We define a localized region $\mathcal{F}$ containing the defect 
+and its nearest coordination shells. The defect is introduced 
+through a local perturbation operator 
+$\hat{V}_{\mathrm{def}}^{\mathrm{loc}}$ 
+that accounts for:
+
+\begin{enumerate}
+\item Removal or modification of nuclear charges,
+\item Local structural relaxation,
+\item Possible excess electronic charge.
+\end{enumerate}
+
+The full interacting Hamiltonian of the defect system 
+embedded in the pristine field is then written as
+
+\begin{equation}
+\hat{H}^{\mathrm{def}} 
+= \hat{T}
++ \hat{V}^{\mathrm{emb}}
++ \hat{V}_{\mathrm{def}}^{\mathrm{loc}}
++ \hat{W},
+\end{equation}
+where $\hat{W}$ is the electron--electron interaction operator.
+
+The key feature of this decomposition is that 
+$\hat{V}^{\mathrm{emb}}$ remains fixed and 
+corresponds to the infinite pristine host. 
+No periodic images of the defect are introduced, 
+and therefore no artificial defect--defect 
+Coulomb interactions arise.
+
+\subsection{Fragment--Environment Partitioning}
+
+The one-particle Hilbert space is partitioned into 
+fragment ($F$) and environment ($E$) subspaces 
+using localized orbitals,
+\begin{equation}
+\mathcal{H} = \mathcal{H}_F \oplus \mathcal{H}_E .
+\end{equation}
+
+In practice, a mean-field calculation is performed 
+for the defect Hamiltonian in the embedding field, 
+after which orbitals are localized (e.g., via Pipek--Mezey) 
+and assigned to $F$ or $E$ according to spatial criteria.
+
+The effective embedded fragment Hamiltonian becomes
+
+\begin{equation}
+\hat{H}_{\mathrm{eff}}^F
+=
+\sum_{pq \in F} h_{pq}^{\mathrm{emb}} 
+a_p^\dagger a_q
++
+\frac{1}{2}
+\sum_{pqrs \in F}
+(pq|rs)
+a_p^\dagger a_q^\dagger a_s a_r ,
+\end{equation}
+where $h_{pq}^{\mathrm{emb}}$ contains:
+
+\begin{itemize}
+\item Kinetic energy contributions,
+\item The pristine host embedding potential,
+\item Mean-field Coulomb and exchange interactions 
+      from frozen environment orbitals.
+\end{itemize}
+
+\subsection{Treatment of Charged Defects}
+
+A significant advantage of the ADM is that 
+charged defect states can be treated without 
+introducing compensating background charges 
+or Makov--Payne corrections. 
+Because the embedding potential is derived 
+from the neutral pristine crystal and does not 
+depend on the defect charge, the excess charge 
+remains localized within the fragment region 
+while interacting with the correct long-range 
+periodic host field.
+
+Thus, defect formation energies and charge 
+transition levels can be evaluated without 
+periodic image artifacts.
+
+\subsection{Correlated Wavefunction Treatment}
+
+Once $\hat{H}_{\mathrm{eff}}^F$ is defined, 
+electron correlation within the fragment 
+can be treated using a high-level many-body method. 
+In the present work, coupled cluster theory 
+with single and double excitations (CCSD) is employed:
+
+\begin{equation}
+\ket{\Psi_{\mathrm{CC}}}
+=
+e^{\hat{T}}
+\ket{\Phi_0},
+\qquad
+\hat{T} = \hat{T}_1 + \hat{T}_2 .
+\end{equation}
+
+The amplitude equations are obtained from
+
+\begin{equation}
+\bra{\Phi_\mu}
+e^{-\hat{T}}
+\hat{H}_{\mathrm{eff}}^F
+e^{\hat{T}}
+\ket{\Phi_0}
+= 0 .
+\end{equation}
+
+The total embedded energy is constructed as
+
+\begin{equation}
+E_{\mathrm{tot}}
+=
+E_{\mathrm{env}}^{\mathrm{MF}}
++
+E_{\mathrm{frag}}^{\mathrm{corr}}
+-
+E_{\mathrm{frag}}^{\mathrm{MF}},
+\end{equation}
+ensuring no double counting of mean-field contributions.
+
+\subsection{Advantages of the Aperiodic Defect Model}
+
+The ADM provides:
+
+\begin{enumerate}
+\item Elimination of artificial periodic defect images,
+\item Correct long-range electrostatic boundary conditions,
+\item Compatibility with systematically improvable 
+      correlated wavefunction methods,
+\item Rapid convergence toward the thermodynamic limit.
+\end{enumerate}
+
+These features make the approach particularly 
+suited for charged and strongly correlated 
+defect states in low-dimensional materials.
+
+
+
+
+To avoid artificial periodic charge interactions, we adopt an aperiodic cluster model extracted from the periodically optimized $3\times4$ supercell geometry. Edge passivation ensures proper termination of dangling bonds and approximates the extended lattice environment.
+
+\subsection{Embedding and Correlated Treatment}
+
+The cluster is partitioned into a defect-centered fragment and an HF-treated environment. The embedded Hamiltonian includes mean-field interaction with the environment, while the fragment uses coupled cluster with single and double excitations (CCSD). Charge states are treated via open-shell HF references when appropriate.
+
+\section{Computational Details}
+
+\subsection{Periodic Structure Optimization}
+
+Periodic optimizations were performed with the \textsc{CRYSTAL} code using the hybrid B3LYP functional augmented with D3 dispersion and the pob-TZVP-rev2 basis set for phosphorus atoms. A $3\times4$ phosphorene supercell containing a single vacancy was constructed. Convergence criteria for SCF and force thresholds were set tightly ($10^{-7}$\,a.u. for SCF and $10^{-4}$\,a.u. for forces). The equilibrium 5–9 reconstructed geometry was confirmed prior to cluster extraction.
+
+\subsection{Cluster Construction and Embedding}
+
+Clusters were generated from optimized periodic geometries. Edge phosphorus atoms were terminated with hydrogen in a manner consistent with bulk coordination. HF calculations on the full cluster preceded orbital localization for fragment selection.
+
+\section{Previous Studies of Vacancies in Phosphorene}
+
+\subsection{Computational Investigations}
+
+Hu and Yang systematically studied various point defects in phosphorene, identifying the single vacancy (5|9) as one of the most electronically active structures introducing localized mid-gap states and hole doping \cite{HuYang2015_JPCCdefects}. Wang \textit{et al.} used hybrid DFT to reveal that both vacancies and interstitials are more stable in outer layers of few-layer phosphorene, suggesting their role as shallow acceptors relevant to observed p-type conductivity \cite{PhysRevB.91.045433}. Zhan \textit{et al.} investigated charged vacancy states and reported that single and double vacancies can exist in stable $-1$ charge states, significantly affecting geometries, electronic properties, and pathways for O$_2$ dissociation \cite{Zhan2019_JPCCvacancies}.
+
+Beyond static DFT, advanced simulations employing neural-network potentials have shown that single vacancies in phosphorene exhibit high mobility and can coalesce into divacancies with distinct energetics and lower mobility \cite{JPhysChemC.3c05713}. These studies emphasize the complex kinetics of defects in real samples beyond static optimization.
+
+\subsection{Experimental Context and Mechanical Effects}
+
+Experimental characterization of vacancies remains challenging due to the high mobility of monovacancies, yet local defect clusters and their impacts have been implicated in rapid oxidation and mechanical degradation. For example, vacancy sites significantly reduce fracture strength and thermal conductivity, in agreement with mechanochemical observations in 2D phosphorene samples \cite{Sha2016_Nanotechnology}. First-principles analyses of vacancy–oxidation interplay align with experimentally observed rapid structural instability in ambient conditions \cite{Kistanov2016_arXivoxidation}.
+
+\section{Conclusions and Outlook}
+
+We present a multilevel quantum embedding framework suitable for correlated studies of vacancy defects in phosphorene. The combination of periodic DFT structural optimization and HF-embedded high-level correlated treatment of defect fragments provides a path toward accurate charge-state energetics and localized electronic structure. Integration with experimental observations underscores the need for high-accuracy theoretical tools in defect engineering of 2D materials.
+
+\bibliographystyle{unsrt}
+\bibliography{phosphorene_vacancies}
+
+\end{document}
