@@ -130,8 +130,18 @@ In this work we employ the canonical four-index integral \texttt{FCIDUMP} interf
 \section{Calculations}
 \subsection{Computational parameters}
 
+Unless specified otherwise, all calculations employed the POB-VTZ-rev2 basis set.\cite{POB_VTZ-rev2} Periodic DFT and HF calculations were performed with the \textsc{CRYSTAL17} program.\cite{CRYSTAL} Structural optimizations were carried out using the B3LYP functional\cite{B3LYP1} with the D3 dispersion correction.\cite{GrimmeD3}
+SCF convergence was stabilized by damping the Fock matrix updates to 20\% during the initial iterations. The DIIS acceleration procedure was activated only after the energy change dropped below $0.01$~hartree.
 
-Consider a perfect crystalline solid described by a periodic 
+The structure of pristine phosphorene was obtained using a $12\times12$ $k$-mesh and a slightly modified POB-VTZ basis set, where the $d$- and $f$-type functions were taken from the cc-pVTZ basis.\cite{Dunning1989}
+The defect structure was optimized in a $4\times3$ supercell (48 atoms) with one excess electron per cell to model the negatively charged vacancy and using a $12\times12$ $k$-mesh. To allow a possible spin-polarization on the defect, it was  treated using broken-symmetry DFT with an initial triplet guess.
+
+
+In the periodic HF calculations within ADM, the integral tolerances were tightened significantly relative to the default values to minimize numerical errors in the embedding field. Specifically, the CRYSTAL TOLINTEG thresholds were set to 10 10 10 30 100, and a $16\times16$ $k$-mesh was employed. Formally for ADM the primitive cell periodic HF calculation could be used. However, technically, with the primitive unit cell the Fock matrix $F^{\rm per}_{\mu'\nu'}$ for multiple closely lying centers in their new postion, as not possible with Crystal. Therfore a 2$\times$2 superccel was used. 
+
+Formally, the periodic HF calculation for ADM could be performed in the primitive unit cell. In practice, however, \textsc{CRYSTAL} cannot evaluate the periodic Fock matrix $F^{\rm per}_{\mu'\nu'}$ for basis functions centered on displaced atoms when they appear too close to each other, which turned out to be the case within the primitive cell set up. Therefore, a $2\times2$ supercell was employed for the periodic HF step.
+
+
 
 \subsection{Aperiodic Defect Model}
 
