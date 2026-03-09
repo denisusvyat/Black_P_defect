@@ -123,11 +123,13 @@ Again the summations over nuclei run only over the removed or added ones rather 
 
 The density-fitted ADM has been implemented in the \textsc{Cryscor} program\cite{CRYSCOR} by repurposing the local density-fitting machinery of the periodic LMP2-F12 code.\cite{Usvyat2013_F12} Density-fitted Hartree--Fock and canonical MP2 calculations are carried out on the \textsc{Cryscor} side. Higher-level methods are run via an interface to the molecular code \textsc{Molpro},\cite{Molpro2020} which is straightforward due to the formal equivalence between ADM and a finite cluster. 
 
-In this work we employ the canonical four-index integral \texttt{FCIDUMP} interface,\cite{Knowles1989_FCIDUMP} which is used for DCSD, CCSD(T), and EOM-CCSD calculations. In addition, we test an interface to our pilot implementation of density-fitted local correlation methods,\cite{your_local_corr_ref} currently featuring local MP2, local DCSD, and local ADC(2). These methods employ Pipek--Mezey localization\cite{Pipek1989} of the fragment HF orbitals together with the PAO-domain restricted virtual space and are implemented within the local integrated tensor framework\cite{Kats_LITF} of the \textsc{Molpro} program package.
+In this work we employ the canonical four-index integral \texttt{FCIDUMP} interface,\cite{Knowles1989_FCIDUMP} which is used for DCSD,\cite{..} CCSD(T),\cite{..} and EOM-CCSD\cite{..} calculations. In addition, we test an interface to our pilot implementation of density-fitted local correlation methods,\cite{your_local_corr_ref} currently featuring local MP2, local DCSD, and local ADC(2)\cite{..}. These methods employ Pipek--Mezey localization\cite{Pipek1989} of the fragment HF orbitals together with the PAO-domain restricted virtual space and are implemented within the local integrated tensor framework\cite{Kats_LITF} of the \textsc{Molpro} program package.
 
 
 
-\subsection{Pristine Host Hamiltonian}
+\section{Calculations}
+\subsection{Computational parameters}
+
 
 Consider a perfect crystalline solid described by a periodic 
 
