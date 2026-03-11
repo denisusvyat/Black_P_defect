@@ -23,11 +23,11 @@
  \affiliation{Institut f\"ur Chemie, Humboldt-Universit\"at zu Berlin, Brook-Taylor-Str. 2, Berlin 12489, Germany}
 
  
-\author{D. Kats}%
+\author{Daniel Kats}%
 \affiliation{Max Planck Institute for Solid State Research, Heisenbergstr. 1, 70569 Stuttgart, Germany}%
 
  
- \author{D. Usvyat}
+ \author{Denis Usvyat}
  \affiliation{Institut f\"ur Chemie, Humboldt-Universit\"at zu Berlin, Brook-Taylor-Str. 2, Berlin 12489, Germany}
  \email{denis.usvyat@hu-berlin.de}
 
@@ -141,9 +141,13 @@ In the periodic HF calculations within ADM, the integral tolerances were tighten
 
 Formally, the periodic HF calculation for ADM could be performed in the primitive unit cell. In practice, however, \textsc{CRYSTAL} cannot evaluate the periodic Fock matrix $F^{\rm per}_{\mu'\nu'}$ for basis functions centered on displaced atoms when they appear too close to each other, which turned out to be the case within the primitive cell set up. Therefore, a $2\times2$ supercell was employed for the periodic HF step.
 
+In the present density-fitted implementation of ADM, the same auxiliary fitting basis is employed for both HF and post-HF two-electron integrals. Consequently, the auxiliary basis must provide adequate accuracy for both contributions. Test calculations show that the HF energy is considerably more sensitive to the choice of the auxiliary basis than the correlation energy, a behavior that has also been observed in other studies.\cite{DF_HF_sensitive}
+Therefore, our auxiliary basis is based on the cc-pVTZ/JKFIT set,\cite{Weigend2002_JKFIT} which was optimized specifically for HF calculations. In this basis, the $f$- and $g$-type functions were replaced by those from the cc-pVTZ/MP2FIT auxiliary basis,\cite{Weigend2002_MP2FIT} which contains a richer set of high-angular-momentum functions. Such a combination has been found to provide high accuracy in energy differences for both the HF and correlation contributions calculated with POB-VTZ-rev2.
 
 
-\subsection{Aperiodic Defect Model}
+\subsection{Structure of the defect}
+
+The B3LYP-D3 optimization of the pristine phoshorene gave  
 
 Below is a LaTeX-ready theory section written in a style appropriate for The Journal of Chemical Physics and based on the formal framework of the aperiodic defect model (ADM) introduced in:
 
