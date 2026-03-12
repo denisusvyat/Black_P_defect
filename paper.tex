@@ -154,7 +154,42 @@ Finally, the periodic CIS optical band gap of pristine phosphorene was computed 
 
 \subsection{Structure of the defect}
 
-We start with the structure of pristine phoshorene, Fig. \ref{..}a. A B3LYP-D3 optimization gaves the lattice parameters of  $a=3.3\AA$ and  $b=4.47\AA$ (the exact specification is in given the SI). Introduction of the defect 
+A B3LYP-D3 optimization of pristine phoshorene, Fig. \ref{fig:per_phos}a gives the lattice parameters of  $a=3.3\AA$ and  $b=4.47\AA$ (the exact structural specification is in given the SI). Introduction of a vacancy in phosphorene, i.e. removal of a phosphorus atom, leads to a structural reconstruction of the neighboring atoms. Two reconstructed monovacancy structures are typically considered in phosphorene: the asymmetric (5|9) and the symmetric (55|66) configurations denoted by the number of the atoms forming the rings. To probe both In our optimizations we used symmetric and and symmetry dBroken-symmetry B3LYP-D3 optimizations for the triplet statriplet We performed optimizations using n-polarized  DFT for singlet 
+
+
+
+
+
+\begin{figure}
+\centering
+%\begin{tabular}{cc}
+\includegraphics[width=0.45\textwidth]{Pristine.pdf}\\
+(a)\\
+\includegraphics[width=0.45\textwidth]{Defect.pdf}\\
+(b)
+%\end{tabular}
+\caption{Optimized structures of pristine phosphorene (a) and the negatively charged monovacancy in phosphorene within a $4\times3$ supercell (b). The structures of the pristine phoshphorene (a) and of the negatively charged (5|9)-vacancy in phosphorne optimized within 4$\times$3-supercell.  The atoms belonging to the reconstructed 5- and 9-membered rings are highlighted in grey.}\label{fig:per_phos}
+\end{figure}
+
+\begin{figure*}
+\centering
+\begin{tabular}{ccc}
+  \includegraphics[width=0.3\textwidth]{18.pdf}&
+  \includegraphics[width=0.3\textwidth]{32.pdf}&
+  \includegraphics[width=0.3\textwidth]{47.pdf}\\
+  18 atoms & 32 atoms & 47 atoms\\
+  \includegraphics[width=0.3\textwidth]{67.pdf}&
+  \includegraphics[width=0.3\textwidth]{88.pdf}&
+  \includegraphics[width=0.3\textwidth]{114.pdf}\\
+  67 atoms & 88 atoms & 114 atoms\\
+  &\includegraphics[width=0.3\textwidth]{141.pdf}&\\
+  & 141 atoms&
+\end{tabular}
+\caption{Fragments used in the ADM calculations. Atoms forming the defect, i.e., those whose positions are explicitly changed, are marked in pink. These atoms, and their counterparts from the pristine structure, explicitly enter the summations over $K'$ and $K$ in Eqs.~(\ref{eq:defect_h}) and (\ref{eq:E_nuc_defect}). Fragment atoms that remain in their positions but whose electrons are relaxed within ADM are shown in pale blue. Atoms of the environment, whose electrons, represented by the resepctive WFs, are frozen and provide the embedding field, are shown in gold. The number of atoms in each fragment is indicated below the corresponding depiction.}
+\end{figure*}
+
+
+
 
 
 \section{Theory: Aperiodic Defect Model}
