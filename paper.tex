@@ -127,8 +127,8 @@ In this work we employ the canonical four-index integral \texttt{FCIDUMP} interf
 
 
 
-\section{Calculations}
-\subsection{Computational parameters}
+\section{Computational parameters}
+
 
 Unless specified otherwise, all calculations employed the POB-VTZ-rev2 basis set.\cite{POB_VTZ-rev2} Periodic DFT and HF calculations were performed with the \textsc{CRYSTAL17} program.\cite{CRYSTAL} Structural optimizations were carried out using the B3LYP functional\cite{B3LYP1} with the D3 dispersion correction.\cite{GrimmeD3}
 SCF convergence was stabilized by damping the Fock matrix updates to 20\% during the initial iterations. The DIIS acceleration procedure was activated only after the energy change dropped below $0.01$~hartree.
@@ -152,12 +152,11 @@ Reference calculations for the phosphorus atom in its quartet ground state were 
 
 Finally, the periodic CIS optical band gap of pristine phosphorene was computed using the \textsc{Cryscor} CIS implementation described in Ref.~\onlinecite{Cryscor_CIS}.
 
-\subsection{Structure of the defect}
-
-A B3LYP-D3 optimization of pristine phoshorene, Fig. \ref{fig:per_phos}a gives the lattice parameters of  $a=3.3\AA$ and  $b=4.47\AA$ (the exact structural specification is in given the SI). Introduction of a vacancy in phosphorene, i.e. removal of a phosphorus atom, leads to a structural reconstruction of the neighboring atoms. Two reconstructed monovacancy structures are typically considered in phosphorene: the asymmetric (5|9) and the symmetric (55|66) configurations denoted by the number of the atoms forming the rings. To probe both In our optimizations we used symmetric and and symmetry dBroken-symmetry B3LYP-D3 optimizations for the triplet statriplet We performed optimizations using n-polarized  DFT for singlet 
 
 
+\section{Structural specification of ADM}
 
+A B3LYP-D3 optimization of pristine phosphorene (Fig.~\ref{fig:per_phos}a) yields lattice parameters of $a=3.30\,\text{\AA}$ and $b=4.47\,\text{\AA}$ (the full structural specification is provided in the Supporting Information). Two reconstructed monovacancy structures are typically considered in phosphorene: the asymmetric (5|9) and the symmetric (55|66) configurations, denoted according to the number of atoms forming the rings. To compare these configurations energetically, we optimized the defect in a $4\times3$ supercell starting from both symmetric and distorted initial geometries. To probe the spin symmetry of the wavefunction of the negatively charged monovacancy, we considered both triplet and singlet spin states. To prevent artificial trapping in a closed-shell solution in the singlet calculations, the initial guess orbitals were taken from preliminary triplet SCF runs allowing for possible spin polarization.
 
 
 \begin{figure}
@@ -170,6 +169,43 @@ A B3LYP-D3 optimization of pristine phoshorene, Fig. \ref{fig:per_phos}a gives t
 %\end{tabular}
 \caption{Optimized structures of pristine phosphorene (a) and the negatively charged monovacancy in phosphorene within a $4\times3$ supercell (b). The structures of the pristine phoshphorene (a) and of the negatively charged (5|9)-vacancy in phosphorne optimized within 4$\times$3-supercell.  The atoms belonging to the reconstructed 5- and 9-membered rings are highlighted in grey.}\label{fig:per_phos}
 \end{figure}
+
+
+The optimized defect in the triplet state was found to be about 0.6 eV higher in energy than in the singlet state. When optimized starting from a distorted geometry, the singlet state converged to the (5|9) structure shown in Fig.~\ref{fig:per_phos}b. Furthermore, despite the spin-polarized initial guess,  at the (5|9) optimized geometry the wavefunction converged to a closed-shell solution.
+Optimization starting from the symmetric structure resulted in a spin-polarized solution within the (55|66) geometry. However, this structure was slightly higher in energy (by about 0.34 eV), suggesting that it corresponds to a shallow transition state between the (5|9) and (9|5) minima. These results are consistent with previous DFT studies of 
+phosphorene monovacancies.\cite{Hu2015_PhosphoreneVacancies,Naik2020_PRMaterials_PhosphoreneDefects,Rijal2021_PhosphoreneVacancy}
+
+
+
+
+Following these results, we focus on the minimum (5|9) structure for the subsequent ADM calculations. To enable the ADM calculations on fragments smaller than the full 48-atom supercell -- necessary for computationally demanding post-Hartree–Fock methods -- the system was reoptimized within the same $4\times3$ supercell while allowing only a subset of atoms to relax. Restricting relaxation to the 12 atoms that form the 5- and 9-membered rings leads to a collapse toward the (55|66) structure, indicating that the relaxed fragment must be further expanded. Including all atoms that move by at least 0.1~\AA\ adds six additional atoms, yielding an 18-atom fragment that correctly relaxes to the (5|9) configuration. This set of 18 atoms thus defines the minimal fragment used in the subsequent ADM calculations, as the latter must encompass all displaced centers (see Fig.~\ref{fig:frags}). 
+
+
+To assess the convergence with respect to fragment size, we consider a series of fragments containing up to 141 atoms. Each successive fragment is constructed by adding atoms within one bond connectivity from the previous fragment. The set of displaced atoms is kept fixed to the initially chosen 18 atoms (see Fig.~\ref{fig:frags}).
+
+
+For the defect formation energy we employ its chemical definition as the electronic energy contribution to the energy of the model reaction
+\[
+\text{pristine phosphorene} \rightarrow \text{phosphorene with a vacancy} + \text{P atom}.
+\]
+Accordingly, the formation energy is given as
+\begin{eqnarray}
+  E_{\rm form}&=&\Delta E^{\rm ADM}({\rm HF}) + \Delta E^{\rm ADM}({\rm corr})\nonumber\\
+  &&+\Delta E_{\rm 18\uparrow relax},\label{eq:energy}
+\end{eqnarray}
+where $\Delta E^{\rm ADM}$ is the formation energy within the ADM model,
+\begin{eqnarray}
+  \Delta E^{\rm ADM}=E^{\rm ADM}_{\rm defect} + E_P - E^{\rm ADM}_{\rm pristine}.
+\end{eqnarray}
+Here $E_P$ is the energy of the phosphorus atom in its quartet ground state, and $\Delta E_{\rm 18\uparrow relax}$ denotes the relaxation energy beyond the 18-atom fragment,
+\begin{eqnarray}
+  \Delta E_{\rm 18\uparrow relax}=E_{\rm relax} - E_{\rm relax\,18},
+\end{eqnarray}
+where $E_{\rm relax}$ is the energy of the fully relaxed structure and $E_{\rm relax\,18}$ is that of the structure with only the 18 atoms relaxed. With our $4\times3$ supercell and the B3LYP-D3 functional, $\Delta E_{\rm 18\uparrow relax}$ amounts to $-0.146$ eV.
+
+We note that the definition (\ref{eq:energy}) corresponds to the reaction-energy formulation commonly used in quantum chemistry. It is equivalent to the standard solid-state expression for the defect formation energy\cite{Freysoldt2014Review}, provided that the phosphorus chemical potential is chosen as the energy of an isolated phosphorus atom. In contrast to periodic supercell approaches, charge and finite-size corrections are not required in ADM, as the latter does not involve periodic replication of the defect or the introduction of a compensating background charge. Instead, the charged defect explicitly experiences the electrostatic potential of the non-defective crystal through the embedding.
+
+
 
 \begin{figure*}
 \centering
@@ -185,34 +221,61 @@ A B3LYP-D3 optimization of pristine phoshorene, Fig. \ref{fig:per_phos}a gives t
   &\includegraphics[width=0.3\textwidth]{141.pdf}&\\
   & 141 atoms&
 \end{tabular}
-\caption{Fragments used in the ADM calculations. Atoms forming the defect, i.e., those whose positions are explicitly changed, are marked in pink. These atoms, and their counterparts from the pristine structure, explicitly enter the summations over $K'$ and $K$ in Eqs.~(\ref{eq:defect_h}) and (\ref{eq:E_nuc_defect}). Fragment atoms that remain in their positions but whose electrons are relaxed within ADM are shown in pale blue. Atoms of the environment, whose electrons, represented by the resepctive WFs, are frozen and provide the embedding field, are shown in gold. The number of atoms in each fragment is indicated below the corresponding depiction.}
+\caption{Fragments used in the ADM calculations. Atoms forming the defect, i.e., those whose positions are explicitly changed, are marked in pink. These atoms, and their counterparts from the pristine structure, explicitly enter the summations over $K'$ and $K$ in Eqs.~(\ref{eq:defect_h}) and (\ref{eq:E_nuc_defect}). Fragment atoms that remain in their positions but whose electrons are relaxed within ADM are shown in pale blue. Atoms of the environment, whose electrons, represented by the resepctive WFs, are frozen and provide the embedding field, are shown in gold. The number of atoms in each fragment is indicated below the corresponding depiction.}\label{fig:frags}
 \end{figure*}
 
 
 
 
+Ideally, $\Delta E^{\rm ADM}$ should correspond to the thermodynamic limit, i.e., it should be converged with respect to the ADM fragment size or extrapolated to the infinite-fragment limit. The separation into HF and correlation components becomes useful here because the relatively inexpensive HF contribution, which contains most of the electrostatic and density-relaxation response to defect formation, may converge more slowly with fragment size than the more expensive correlation part. Furthermore, the correlation component itself can be partitioned into a lower-level contribution (e.g., MP2), which can be evaluated on large fragments, and a higher-level correction that is expected to converge even more rapidly.\cite{Mullan2022_JCP_Al2O3}
 
-\section{Theory: Aperiodic Defect Model}
 
-\subsection{Conceptual Framework}
+Technically, the ADM workflow for the present defect consists of an initial periodic calculation for pristine phosphorene, followed by orbital localization and evaluation of the electrostatic potential at the new positions of the 18 relaxed atoms. The latter enters the second term of Eq.~(\ref{eq:E_nuc_defect}). The defect is constructed by removing 19 atoms (one vacancy and 18 displaced atoms) and adding 18 atoms at their new relaxed positions. This defines the summation ranges over $K'$ and $K$ in Eqs.~(\ref{eq:defect_h}) and (\ref{eq:E_nuc_defect}). Expansion of the fragment introduces additional basis orbitals $\ket{\mu'}$ and fragment Wannier functions $N_{\rm WFs}^{\rm frag}$, and thus additional electrons to be relaxed according to Eq.~(\ref{eq:n_el}). Finally, the SCF procedure is performed for the chosen fragment using the Hamiltonian in Eq.~(\ref{eq:defect_h}) and the projected basis functions defined in Eq.~(\ref{eq:new_AO}), optionally followed by a post-Hartree-Fock treatment.
 
-Traditional periodic supercell approaches to point defects 
-implicitly replicate the defect throughout the crystal lattice. 
-This artificial periodicity introduces spurious defect--defect 
-interactions that converge slowly with respect to supercell size, 
-particularly for charged or open-shell states where long-range 
-Coulomb interactions dominate.
 
-The aperiodic defect model (ADM), recently introduced by 
-Lavroff \textit{et al.},\cite{Lavroff2025_JCP_ADM} 
-circumvents these limitations by embedding a single, 
-non-periodic defect fragment into the exact mean-field 
-environment of the pristine periodic host. 
-In this approach, the crystalline environment remains 
-strictly periodic and defect-free, while the defect 
-itself is treated locally and aperiodically.
 
-\subsection{Pristine Host Hamiltonian}
+Importantly, to evaluate $\Delta E^{\rm ADM}$ consistently within ADM, both the fragment and the set of explicitly manipulated atoms entering the sums over $K'$ and $K$ in Eq.~(\ref{eq:E_nuc_defect}) must correspond one-to-one between the defect and pristine systems. This implies that $E^{\rm ADM}_{\rm pristine}$ must be computed using a fragment of the same shape as that used for $E^{\rm ADM}_{\rm defect}$. Furthermore, in the ADM calculation on the pristine structure the atoms, corresponding to the removed or displaced atoms of the defect, must be formally marked as both removed ($K$) and added ($K'$), so that they explicitly enter the effective nuclear-energy term in Eq.~(\ref{eq:E_nuc_defect}). In the present case, this corresponds to 19 atoms of the pristine system: one atom that becomes the vacancy in the defect and the 18 atoms that are displaced upon defect formation.
+
+
+
+
+
+\section{Results and Discussion}
+
+\subsection{Defect Formation Energy}
+
+We begin by analyzing the HF contribution to the defect formation energy, given in Fig. \ref{fig:En_form}. The smallest 18-atom fragment is clearly inadequate fot HF, which is not surprizing as is implies the frozen bond WFs to connect the absent atoms.  
+
+For convergnece it requires The HF contribution exhibits slower convergence, reflecting the long-range nature of the electrostatic and density-relaxation effects. In contrast, the correlation energy converges more rapidly with fragment size, allowing accurate estimation of the high-level post-HF correction even for relatively small fragments. 
+
+The inset of Fig.~\ref{fig:En_form} shows the HF formation energies plotted against $1/N_{\rm at}^{2.8}$, which provides a nearly linear dependence and enables extrapolation to the thermodynamic limit.
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{En_form.pdf}
+\caption{HF and correlation components of the defect formation energy as functions of the fragment size $N_{\rm at}$. The inset shows the HF formation energies plotted as a function of $1/N_{\rm at}^{2.8}$, along with the linear fit to extrapolate to the thermodynamic limit.}
+\label{fig:En_form}
+\end{figure}
+
+
+\subsection{Excitation Energy}
+
+We next examine the excitation energies of the defect, computed with CIS, LADC(2), and EOM-CCSD methods on the ADM fragments. Figure~\ref{fig:En_ex} displays the first excitation energy as a function of fragment size, along with the CIS excitation energy of pristine phosphorene calculated both fully periodically and within ADM. The comparison illustrates the reliability of the ADM approach for capturing the excitation properties of both defective and pristine systems, as well as the effect of fragment size on the excited-state energies.
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{En_ex.pdf}
+\caption{First excitation energy of the defect calculated using CIS, LADC(2), and EOM-CCSD methods, as well as the CIS excitation energy of pristine phosphorene computed both fully periodically and within ADM.}
+\label{fig:En_ex}
+\end{figure}
+
+
+
+
 
 Consider a perfect crystalline solid described by a periodic 
 mean-field Hamiltonian
