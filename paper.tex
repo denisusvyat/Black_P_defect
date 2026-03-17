@@ -145,9 +145,9 @@ Therefore, our auxiliary basis is based on the cc-pVTZ/JKFIT set,\cite{Weigend20
 
 The fragment HF and MP2 calculations within ADM were carried out using our ADM implementation in the \textsc{Cryscor} code. Other fragment post-HF calculations were performed with \textsc{Molpro} via the \texttt{FCIDUMP} interface\cite{Knowles1989_FCIDUMP} (DCSD, CCSD(T), EOM-CCSD) or through our own interface to the local integrated tensor framework (LITF)\cite{Kats_LITF} (LMP2, LDCSD, CIS, LADC(2)). 
 
-The current LDCSD implementation within LITF is restricted to strong pairs, defined as pairs that share at least one atom in their respective orbital domains. The remaining pairs, denoted as weak pairs, are treated at the LMP2 level. For the ground-state amplitudes, the standard minimal orbital domains were employed.
+The current LDCSD implementation within LITF is restricted to strong pairs, defined as pairs that share at least one atom in their respective orbital domains. The remaining pairs, denoted as weak pairs, are treated at the LMP2 level. For the ground-state amplitudes, the standard orbital domains extended by one bond connectiveity (iext=1) were used.
 
-Reference calculations for the phosphorus atom in its quartet ground state were also carried out using \textsc{Molpro} with ROHF,\cite{Roothaan1960_ROHF} RMP2,\cite{Pople1976_RMP2} RDCSD,\cite{RDCSD_ref} and RCCSD(T).\cite{RCCSDT} To reduce basis-set superposition error, the phosphorus atom was surrounded by 11 ghost centers placed at the positions of neighboring atoms in the pristine phosphorene structure. All post-HF methods use the frozen core approximation.
+Reference calculations for the phosphorus atom in its quartet ground state were also carried out using \textsc{Molpro} with ROHF,\cite{Roothaan1960_ROHF} RMP2,\cite{Pople1976_RMP2} RDCSD,\cite{RDCSD_ref} and RCCSD(T).\cite{RCCSDT} To reduce basis-set superposition error, the phosphorus atom was surrounded by 11 ghost centers placed at the positions of neighboring atoms in the pristine phosphorene structure (for local methods it was 3 ghost atoms to mimic the iext=1 domains). All post-HF methods use the frozen core approximation.
 
 
 Finally, the periodic CIS optical band gap of pristine phosphorene was computed using the \textsc{Cryscor} CIS implementation described in Ref.~\onlinecite{Cryscor_CIS}.
@@ -272,13 +272,16 @@ Coupled-cluster calculations at the CCSD(T) level are too expensive to be perfor
 We are now in a position to provide a CCSD(T)/POB-VTZ-rev2 estimate of the formation energy of a negatively charged monovacancy in phosphorene. The Hartree--Fock component, $\Delta E^{\rm ADM}({\rm HF})$, extrapolated to the thermodynamic limit, amounts to 0.51~eV. The correlation contribution, $\Delta E^{\rm ADM}({\rm corr})$, is evaluated as the MP2 result obtained with the 89-atom fragment (0.803~eV), combined with a CCSD(T) correction to MP2 computed with the 32-atom fragment (-0.256~eV), yielding a total correlation contribution of 0.543~eV. Finally, the relaxation correction beyond the 18-atom fragment, $\Delta E_{\rm 18\uparrow \rm relax}$, is -0.146~eV (see Sec.~\ref{sec:struct}). 
 Combining these contributions gives a final estimate of the defect formation energy of $E_{\rm form} = 0.905$~eV$\approx 21$kcal/mol.
 This moderate formation energy indicates that vacancy formation in phosphorene is  energetically accessible, suggesting that such defects can form under realistic conditions in appreciable concentrations, which is in agreement with experimental studies.\cite{Kiraly2017_BPvacancies,Fang2021_BPchargedVacancy}
-The present value lies at the lower end of the range obtained from DFT calculations for neutral vacancies (0.9 eV -- 1.7 eV).\cite{Hu2015_PhosphoreneVacancies,Naik2020_PRMaterials_PhosphoreneDefects,Rijal2021_PhosphoreneVacancy} Our benchmark, however, refers to the negatively charged defect and involves a higher-level treatment of electron correlation.
+The present value lies at the lower end of the range obtained from DFT supercell calculations for neutral vacancies (0.9 eV -- 1.7 eV).\cite{Hu2015_PhosphoreneVacancies,Naik2020_PRMaterials_PhosphoreneDefects,Rijal2021_PhosphoreneVacancy} Our benchmark, however, refers to the negatively charged defect and involves a higher-level treatment of electron correlation.
 
 
 Conservative error bars associated with the remaining finite-size effects in each of the three components, $\Delta E^{\rm ADM}({\rm HF})$, $\Delta E^{\rm ADM}({\rm corr})$, and $\Delta E_{\rm 18\uparrow \rm relax}$, are expected to be below 0.1~eV. The dominant source of uncertainty is likely the basis-set incompleteness. While the POB-VTZ-rev2 basis provides a reasonable description for periodic DFT calculations, it is not guaranteed that the results are near the basis-set limit,\cite{TS_embedding} particularly for the correlation energy. In principle, ADM allows the use of different, potentially much larger molecular basis sets for the fragment calculations. However, this capability is not yet implemented in the present code, and a systematic assessment of the basis-set incompleteness error is therefore deferred to future work.
 
 
 \subsection{Local correlation treatment}
+
+
+With the canonical high-level treatment (beyond MP2) the fragment size may become prohibitively larger before a convergence pattern is being observed, and thus the time indirect extropolation 
 
 \subsection{Excitation Energy}
 
