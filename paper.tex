@@ -245,7 +245,7 @@ Due to the vacancy-type nature of the defect, the pristine ADM fragments are the
 \subsection{Defect Formation Energy}
 
 
-We begin by analyzing the Hartree-Foc contribution $\Delta E^{\rm ADM}({\rm HF})$ to the defect formation energy, shown in Fig.~\ref{fig:En_form} (the numerical values are provided in the Supporting Information). 
+We begin by analyzing the Hartree-Fock contribution $\Delta E^{\rm ADM}({\rm HF})$ to the defect formation energy, shown in Fig.~\ref{fig:En_form} (the numerical values are provided in the Supporting Information). 
 The smallest 18-atom fragment is clearly inadequate at the HF level, which is not surprising, as for this fragment some bonding Wannier functions of the environment remain effectively anchored to the original atomic positions left behind by the displaced atoms. But even for larger fragments, the HF contribution remains far from converged, and realistic formation energies are only obtained for fragments containing 67 atoms or more. A deviation within 0.1~eV from the extrapolated value is reached only for the largest fragment considered (141 atoms). 
 
 Despite these sizable finite-size errors for small and medium fragments, the convergence behavior is remarkably systematic. When plotted as a function of $1/N_{\rm at}^{2.8}$, the decay of $\Delta E^{\rm ADM}({\rm HF})$ becomes nearly linear over a wide range of fragment sizes, enabling a reliable extrapolation to the thermodynamic limit. Notably, this convergence is significantly faster than the $1/N_{\rm at}$ behavior expected for purely electrostatic finite-size effects of a charged defect. This observation suggests that the dominant source of the slow convergence is not long-range electrostatics, but rather the redistribution of the electronic density along the bonds induced by the structural rearrangement around the vacancy.
@@ -281,12 +281,61 @@ Conservative error bars associated with the remaining finite-size effects in eac
 \subsection{Local correlation treatment}
 
 
-With the canonical high-level treatment (beyond MP2) the fragment size may become prohibitively larger before a convergence pattern is being observed, and thus the time indirect extropolation 
+
+With canonical high-level methods (beyond MP2), the fragment sizes required to observe a clear convergence pattern may become prohibitively large, so that convergence can often only be assessed indirectly via lower-level approaches. The underlying reason is the steep scaling of the computational cost of accurate quantum-chemical models, which can, however, be mitigated by employing local correlation schemes.\cite{Schuetz2001_LCCSD} The resulting reduced scaling of the local approach enables quantum-chemical calculations on substantially larger systems. In the present context, this allows the treatment of much larger fragments and thus a direct assessment of convergence with respect to fragment size. In this work, we employ our pilot implementation of the local distinguishable cluster method interfaced with the ADM framework.
+
+The correlation contributions $\Delta E^{\rm ADM}({\rm corr})$ to the defect formation enegies, computed using both canonical and local methods, are compiled in Table~\ref{tab:local}. We first note that the canonical DCSD results are in good agreement with those of CCSD(T). In particular, the smaller magnitude and faster decay of $\Delta E^{\rm ADM}({\rm CCSD(T)})$ compared to MP2 are also reproduced at the DCSD level.
+
+
+
+
+\begin{table}[h]
+  \centering
+  \caption{Correlation contribution $\Delta E^{\rm ADM}({\rm corr})$ to the defect formation energy calculated for several fragments using canonical and local correlation methods. For the local methods, the correlation energy is further partitioned into strong- and weak-pair contributions, depending on the pair types included in the pair-energy summation. Since the current implementation of LDCSD is restricted to strong pairs only, its weak-pair contribution is equal to that of LMP2.}
+    \begin{tabular}{lcccccc}
+    \hline\hline
+    &\multicolumn{6}{c}{$N_{\rm at}$}\\
+    &&18 && 32 &&47 \\
+    \hline
+    
+    \multicolumn{7}{c}{   Canonical treatment}\\
+   MP2           &~~ & 1.057 &~~ & ~0.713 &~~ & ~0.846 \\
+   DCSD          & & 0.862 & & ~0.420  &&       \\
+   CCSD(T)       &  & 0.927 & & ~0.457 & &       \\
+    \hline
+    \multicolumn{7}{c}{    Local treatement}\\
+   LMP2          & & 1.074 & & ~0.713 & & ~0.838 \\
+   LDCSD         & & 1.122 & & ~0.674 & & ~0.805 \\
+    \hline   
+   LMP2 strong   & & 0.174 & &-0.270 & & -0.254 \\
+   LMP2 weak     & & 0.900 & & ~0.983 & &  ~1.092 \\
+   LDCSD strong  & & 0.222  &&-0.309 & &  -0.287 \\
+    \hline \hline
+    \end{tabular}
+    \label{tab:local}
+\end{table}
+
+
+The LMP2 results are in close agreement with canonical MP2, indicating that the error introduced by the local domain approximation is small. In contrast, the LDCSD results deviate significantly from canonical DCSD and instead remain close to LMP2.  To rationalize this behavior, we decompose the correlation energy into contributions from short-range (strong pairs) and long-range (weak pairs). We note that the present LDCSD implementation is restricted to strong pairs only, following the standard pair approximation employed in earlier local correlation schemes.\cite{Schuetz2001_LCCSD} As a result, the long-range correlation contribution in LDCSD is effectively described at the LMP2 level.
+
+
+Analysis of the short- and long-range contributions to $\Delta E^{\rm ADM}({\rm corr})$ shows that its dominant part arises from the long-range component, i.e., from the difference in dispersive interactions between the defective and pristine systems. This observation explains why CCSD(T) and DCSD, which account for Coulomb screening of dispersion interactions, yield smaller values of $\Delta E^{\rm ADM}({\rm corr})$ compared to MP2, where dispersion is effectively unscreened. Indeed, the confinement of dispersion interactions due to screening is  known to be pronounced in polarizable systems in general and has been observed in black phosphorus or phosphorene.\cite{schuetz_usvyat_black_p}  
+The dominance of the long-range contribution also supports our, albeit indirect, assessment that $\Delta E^{\rm ADM}({\rm CCSD(T)})$ converges rapidly with fragment size, as the long-range correlation is expected to decay faster at the CCSD(T) level than at the MP2 level.
+
+Under these circumstances, if the weak-pair contribution in LDCSD remains described at the MP2 level, the accuracy of $\Delta E^{\rm ADM}({\rm LDCSD})$ cannot be expected to surpass that of MP2. This highlights the importance of a hierarchical pair approximation,\cite{Weak_pairs_schuetz_usvyat,weak_pair_werner_usvyat} in which both close and distant pairs are treated at an approximate, yet still coupled-cluster-based level. Such an approach enables an accurate and at the same time computationally affordable description of dispersion. Implementation of local correlation methods within ADM employing a proper pair treatment is currently underway.
+
+
+As for the short-range correlation, which is treated at the true LDCSD level, its small but non-negligible contribution to $\Delta E^{\rm ADM}({\rm LDCSD})$ converges rapidly with fragment size, as evident from Table~\ref{tab:local}. Together with the indirect indication of the fast convergence of the long-range component, this supports the conclusion that the total high-level correlation contribution reported in Section~\ref{sec:form_en} is well converged.
+
+
+
 
 \subsection{Excitation Energy}
 
-We next examine the excitation energies of the defect, computed with CIS, LADC(2), and EOM-CCSD methods on the ADM fragments. Figure~\ref{fig:En_ex} displays the first excitation energy as a function of fragment size, along with the CIS excitation energy of pristine phosphorene calculated both fully periodically and within ADM. The comparison illustrates the reliability of the ADM approach for capturing the excitation properties of both defective and pristine systems, as well as the effect of fragment size on the excited-state energies.
+Finally, we examine the excitation energies associated with the defect.
+ADM enables a high-level quantum-chemical treatment of excited states localized on defects. A possibility for an excited-state quantum-chemical treatment is particularly significant for solid-state applications, where excited states are still mostly described at the level of the one-particle Kohn-Sham band structure.
 
+We note that ADM is effective for states that lie within the band gap, i.e., whose excitation energies are lower than the lowest excitation energy of the host solid. Otherwise, in the absence of constraints on the excited-state wavefunction, expansion of the fragment would lead to collapse into bulk-like excited states. We illustrate the latter aspect on pristine phosphorene, subjected to a CIS excited state treatment both fully periodically and within ADM (see Fig.~\ref{fig:En_ex}). Periodic CIS, as implemented in \textsc{Cryscor}, allows one to compute the CIS optical band gap at the $\Gamma$-point. Although CIS significantly overestimates the band gap, it provides a useful reference for the relative energetic position of localized excited states.
 
 
 \begin{figure}
@@ -295,6 +344,15 @@ We next examine the excitation energies of the defect, computed with CIS, LADC(2
 \caption{First excitation energy of the defect calculated using CIS, LADC(2), and EOM-CCSD methods, as well as the CIS excitation energy of pristine phosphorene computed both fully periodically and within ADM.}
 \label{fig:En_ex}
 \end{figure}
+
+When pristine phosphorene is treated within ADM, the lowest excitation confined to the fragment lies well above the band gap. Upon increasing the fragment size, the excitation energy gradually decreases. In the thermodynamic limit, the ADM excited state is then expected to collapse into a delocalized bulk state and the excitation energy approach the periodic band gap.
+
+In the case of a defect that supports localized excited states, ADM is, however, much more effective. As can be seen from Fig.~\ref{fig:En_ex}, the CIS excitation energy for the defect lies below the CIS band gap of phosphorine saturates already after a 32-atom fragment.
+
+
+
+
+
 
 
 
