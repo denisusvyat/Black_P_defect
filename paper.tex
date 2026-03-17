@@ -235,7 +235,7 @@ Technically, the ADM workflow for the present defect consists of an initial peri
 
 
 Importantly, to evaluate $\Delta E^{\rm ADM}$ consistently within ADM, both the fragment and the set of explicitly manipulated atoms entering the sums over $K'$ and $K$ in Eq.~(\ref{eq:E_nuc_defect}) must correspond one-to-one between the defect and pristine systems. This implies that $E^{\rm ADM}_{\rm pristine}$ must be computed using a fragment of the same shape as that used for $E^{\rm ADM}_{\rm defect}$. Furthermore, in the ADM calculation on the pristine structure the atoms, corresponding to the removed or displaced atoms of the defect, must be formally marked as both removed ($K$) and added ($K'$), so that they explicitly enter the effective nuclear-energy term in Eq.~(\ref{eq:E_nuc_defect}). In the present case, this corresponds to 19 atoms of the pristine system: one atom that becomes the vacancy in the defect and the 18 atoms that are displaced upon defect formation.
-
+Due to the vacancy-type nature of the defect, the pristine ADM fragments are therefore larger by one atom than the corresponding defect fragments. 
 
 
 
@@ -244,21 +244,41 @@ Importantly, to evaluate $\Delta E^{\rm ADM}$ consistently within ADM, both the 
 
 \subsection{Defect Formation Energy}
 
-We begin by analyzing the HF contribution to the defect formation energy, given in Fig. \ref{fig:En_form}. The smallest 18-atom fragment is clearly inadequate fot HF, which is not surprizing as is implies the frozen bond WFs to connect the absent atoms.  
 
-For convergnece it requires The HF contribution exhibits slower convergence, reflecting the long-range nature of the electrostatic and density-relaxation effects. In contrast, the correlation energy converges more rapidly with fragment size, allowing accurate estimation of the high-level post-HF correction even for relatively small fragments. 
+We begin by analyzing the Hartree-Foc contribution $\Delta E^{\rm ADM}({\rm HF})$ to the defect formation energy, shown in Fig.~\ref{fig:En_form} (the numerical values are provided in the Supporting Information). 
+The smallest 18-atom fragment is clearly inadequate at the HF level, which is not surprising, as for this fragment some bonding Wannier functions of the environment remain effectively anchored to the original atomic positions left behind by the displaced atoms. But even for larger fragments, the HF contribution remains far from converged, and realistic formation energies are only obtained for fragments containing 67 atoms or more. A deviation within 0.1~eV from the extrapolated value is reached only for the largest fragment considered (141 atoms). 
 
-The inset of Fig.~\ref{fig:En_form} shows the HF formation energies plotted against $1/N_{\rm at}^{2.8}$, which provides a nearly linear dependence and enables extrapolation to the thermodynamic limit.
+Despite these sizable finite-size errors for small and medium fragments, the convergence behavior is remarkably systematic. When plotted as a function of $1/N_{\rm at}^{2.8}$, the decay of $\Delta E^{\rm ADM}({\rm HF})$ becomes nearly linear over a wide range of fragment sizes, enabling a reliable extrapolation to the thermodynamic limit. Notably, this convergence is significantly faster than the $1/N_{\rm at}$ behavior expected for purely electrostatic finite-size effects of a charged defect. This observation suggests that the dominant source of the slow convergence is not long-range electrostatics, but rather the redistribution of the electronic density along the bonds induced by the structural rearrangement around the vacancy.
+
+ 
+
 
 
 
 \begin{figure}
 \centering
-\includegraphics[width=0.45\textwidth]{E_form.pdf}
+\includegraphics[width=0.45\textwidth]{E_form2.pdf}
 \caption{HF and correlation components of the defect formation energy as functions of the fragment size $N_{\rm at}$. The inset shows the HF formation energies plotted as a function of $1/N_{\rm at}^{2.8}$, along with the linear fit to extrapolate to the thermodynamic limit.}
 \label{fig:En_form}
 \end{figure}
 
+
+Although $\Delta E^{\rm ADM}({\rm HF})$ requires relatively large fragments for convergence, the computational cost of the density-fitted HF calculation remains modest, allowing the treatment of such fragment sizes. In contrast, the correlation contribution, which is computationally significantly more demanding, converges much more rapidly. Even the smallest fragment already yields meaningful values for the correlation energy, and for the second (32-atom) fragment, $\Delta E^{\rm ADM}({\rm MP2})$ is converged to within 0.1~eV.
+
+Coupled-cluster calculations at the CCSD(T) level are too expensive to be performed beyond the 32-atom fragment. Unfortunately, for polarizable systems the convergence behavior of MP2 may differ from that of CCSD(T). In particular, long-range dispersion interactions in the latter can be effectively screened by many-body effects, which are not captured at the MP2 level.\cite{black_p_exfoliation} As a result, MP2 tends to overestimate long-range correlation contributions in such systems. This effect likely explains the more pronounced drop in $\Delta E^{\rm ADM}({\rm CCSD(T)})$ compared to MP2 when increasing the fragment size from 18 to 32 atoms. Nevertheless, since even the unscreened MP2 contribution is essentially converged at the 32-atom fragment, the CCSD(T) result can also be expected to be close to convergence.
+
+
+
+We are now in a position to provide a CCSD(T)/POB-VTZ-rev2 estimate of the formation energy of a negatively charged monovacancy in phosphorene. The Hartree--Fock component, $\Delta E^{\rm ADM}({\rm HF})$, extrapolated to the thermodynamic limit, amounts to 0.51~eV. The correlation contribution, $\Delta E^{\rm ADM}({\rm corr})$, is evaluated as the MP2 result obtained with the 89-atom fragment (0.803~eV), combined with a CCSD(T) correction to MP2 computed with the 32-atom fragment (-0.256~eV), yielding a total correlation contribution of 0.543~eV. Finally, the relaxation correction beyond the 18-atom fragment, $\Delta E_{\rm 18\uparrow \rm relax}$, is -0.146~eV (see Sec.~\ref{sec:struct}). 
+Combining these contributions gives a final estimate of the defect formation energy of $E_{\rm form} = 0.905$~eV$\approx 21$kcal/mol.
+This moderate formation energy indicates that vacancy formation in phosphorene is  energetically accessible, suggesting that such defects can form under realistic conditions, in agreement with previous studies. 
+The present value lies at the lower end of the range obtained from DFT studies for neutral vacancies.\cite{Hu2015_PhosphoreneVacancies,Naik2020_PRMaterials_PhosphoreneDefects,Rijal2021_PhosphoreneVacancy} In contrast, our benchmark refers to the negatively charged defect and involves a higher-level treatment of electron correlation.
+
+
+Conservative error bars associated with the remaining finite-size effects in each of the three components, $\Delta E^{\rm ADM}({\rm HF})$, $\Delta E^{\rm ADM}({\rm corr})$, and $\Delta E_{\rm 18\uparrow \rm relax}$, are expected to be below 0.1~eV. The dominant source of uncertainty is likely the basis-set incompleteness. While the POB-VTZ-rev2 basis provides a reasonable description for periodic DFT calculations, it is not guaranteed that the results are near the basis-set limit,\cite{TS_embedding} particularly for the correlation energy. In principle, ADM allows the use of different, potentially much larger molecular basis sets for the fragment calculations. However, this capability is not yet implemented in the present code, and a systematic assessment of the basis-set incompleteness error is therefore deferred to future work.
+
+
+\subsection{Local correlation treatment}
 
 \subsection{Excitation Energy}
 
@@ -268,7 +288,7 @@ We next examine the excitation energies of the defect, computed with CIS, LADC(2
 
 \begin{figure}
 \centering
-\includegraphics[width=0.45\textwidth]{E_ex.pdf}
+\includegraphics[width=0.45\textwidth]{E_ex2.pdf}
 \caption{First excitation energy of the defect calculated using CIS, LADC(2), and EOM-CCSD methods, as well as the CIS excitation energy of pristine phosphorene computed both fully periodically and within ADM.}
 \label{fig:En_ex}
 \end{figure}
