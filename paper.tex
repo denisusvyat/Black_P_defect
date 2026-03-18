@@ -332,10 +332,12 @@ As for the short-range correlation, which is treated at the true LDCSD level, it
 
 \subsection{Excitation Energy}
 
-Finally, we examine the excitation energies associated with the defect.
-ADM enables a high-level quantum-chemical treatment of excited states localized on defects. A possibility for an excited-state quantum-chemical treatment is particularly significant for solid-state applications, where excited states are still mostly described at the level of the one-particle Kohn-Sham band structure.
 
-We note that ADM is effective for states that lie within the band gap, i.e., whose excitation energies are lower than the lowest excitation energy of the host solid. Otherwise, in the absence of constraints on the excited-state wavefunction, expansion of the fragment would lead to collapse into bulk-like excited states. We illustrate the latter aspect on pristine phosphorene, subjected to a CIS excited state treatment both fully periodically and within ADM (see Fig.~\ref{fig:En_ex}). Periodic CIS, as implemented in \textsc{Cryscor}, allows one to compute the CIS optical band gap at the $\Gamma$-point. Although CIS significantly overestimates the band gap, it provides a useful reference for the relative energetic position of localized excited states.
+Finally, we examine the excitation energies associated with the defect.
+ADM enables a high-level quantum-chemical treatment of excited states localized on defects. Such a treatment is particularly significant for solid-state applications, where excited states are still predominantly described at the level of the one-particle Kohn--Sham band structure.
+
+We note that ADM is effective for states that lie within the band gap, i.e., whose excitation energies are lower than the lowest excitation energy of the host solid. Otherwise, in the absence of constraints on the excited-state wavefunction, expansion of the fragment would lead to collapse into bulk-like excited states. We illustrate this behavior using pristine phosphorene, treated at the CIS level both fully periodically and within ADM (see Fig.~\ref{fig:En_ex}). Periodic CIS, as implemented in \textsc{Cryscor}, allows one to compute the optical band gap at the $\Gamma$-point.\cite{periodic_CIS} Although CIS significantly overestimates the band gap, it provides a useful reference for the relative energetic position of localized excited states.
+
 
 
 \begin{figure}
@@ -345,22 +347,27 @@ We note that ADM is effective for states that lie within the band gap, i.e., who
 \label{fig:En_ex}
 \end{figure}
 
-When pristine phosphorene is treated within ADM, the lowest excitation confined to the fragment lies well above the band gap. Upon increasing the fragment size, the excitation energy gradually decreases. In the thermodynamic limit, the ADM excited state is then expected to collapse into a delocalized bulk state and the excitation energy approach the periodic band gap.
 
-In the case of a defect that supports localized excited states, ADM is, however, much more effective. As can be seen from Fig.~\ref{fig:En_ex}, the CIS excitation energy for the defect lies below the CIS band gap of phosphorine saturates already after a 32-atom fragment.
-
+When pristine phosphorene is treated within ADM, the lowest excitation confined to the fragment lies well above the band gap. Upon increasing the fragment size, the excitation energy gradually decreases. In the thermodynamic limit, the ADM excited state is expected to collapse into a delocalized bulk state, with a corresponding approach of the excitation energy to the periodic band gap.
 
 
-
+In contrast, for a defect that supports localized excited states, ADM becomes highly effective. As seen in Fig.~\ref{fig:En_ex}, the CIS excitation energy of the defect lies below the CIS band gap of phosphorene and converges already for a 32-atom fragment. As the value obtained with the 47-atom fragment is even slightly higher than that for the 32-atom fragment, differing by less than 0.05~eV, one can reasonably infer that convergence has essentially been reached.
 
 
 
 
+CIS itself is not sufficient for quantitatively accurate excitation energies; therefore, we also employed local ADC(2) and canonical EOM-CCSD using respective interfaces. EOM-CCSD is a highly accurate method, with typical errors in excitation energies on the order of 0.1~eV for states dominated by single excitations (excluding possible basis-set incompleteness effects).\cite{Loos2018_JCTC_Benchmark,Loos2020_JCTC_Benchmark} ADC(2) is a second-order perturbative approach which, although not a direct approximation to EOM-CCSD, can be regarded as a computationally more affordable but less accurate alternative.\cite{..}
 
 
-\section{Conclusions and Outlook}
+Unfortunately, both canonical EOM-CCSD and local ADC(2) treatments turned out to be computationally unfeasible for fragments larger than 32 atoms. However, for the 18- and 32-atom fragments, the EOM-CCSD excitation energies are virtually parallel to the CIS ones. This suggests that the 32-atom EOM-CCSD result is also likely to be close to convergence. The resulting value of 1.95~eV is therefore taken as our best estimate for the excitation energy associated with the negatively charged vacancy in phosphorene. While this value is obtained from a high-level quantum-chemical treatment, it may still be affected by basis-set incompleteness.
 
-We present a multilevel quantum embedding framework suitable for correlated studies of vacancy defects in phosphorene. The combination of periodic DFT structural optimization and HF-embedded high-level correlated treatment of defect fragments provides a path toward accurate charge-state energetics and localized electronic structure. Integration with experimental observations underscores the need for high-accuracy theoretical tools in defect engineering of 2D materials.
+Interestingly, the LADC(2) excitation energies are noticeably lower (by as much as 0.6~eV for the 32-atom fragment) than those of EOM-CCSD and exhibit a stronger dependence on fragment size. Two factors may contribute to this deviation. First, as a perturbative method, ADC(2) may suffer from deficiencies similar to those of ground-state MP2, in particular the lack of Coulomb screening, which can lead to an overestimation of long-range correlation effects. Second, in the local treatment the virtual space used for ground-state LMP2 amplitudes is restricted to smaller domains than the excited-state amplitudes, for which the domains are extended to properly describe the character of the excited-state wavefunction. This imbalance in the local approximations between ground and excited states can effectively lead to an artificial lowering of the excitation energy.
+
+
+\section{Conclusions and outlook}
+
+In this work we demonstrate that 
+
 
 \bibliographystyle{unsrt}
 \bibliography{citations}
