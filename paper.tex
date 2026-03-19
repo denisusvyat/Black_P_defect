@@ -16,7 +16,6 @@
 
  \author{Lily Barta}
  \affiliation{Institut f\"ur Chemie, Humboldt-Universit\"at zu Berlin, Brook-Taylor-Str. 2, Berlin 12489, Germany}
- \affiliation{Max Planck Institute for Solid State Research, Heisenbergstr. 1, 70569 Stuttgart, Germany}
 
  
  \author{Ernst-Christian Flach}
@@ -35,12 +34,12 @@
 
 \date{\today}
 
-\begin{abstract}
-  Point defects critically influence the structural and electronic properties of two-dimensional materials.
-  %In phosphorene, single vacancies reconstruct into a 5–9 defect geometry that introduces localized in-gap states. Traditional density functional theory (DFT) provides structural insight, but accurate treatment of correlation—especially for charged defect states—remains challenging.
 
-%Here, we investigate neutral and negatively charged vacancies in phosphorene using an aperiodic defect model: an HF-embedded cluster for the environment and a correlated coupled cluster treatment of the defect-centered fragment. Optimized 5–9 geometries are obtained from periodic B3LYP-D3 calculations on a $3\times4$ supercell using the pob-TZVP-rev2 basis set within \textsc{CRYSTAL}. Energetics, defect levels, and charge localization are analyzed, highlighting the importance of high-level correlated descriptions tailored to defect physics.
+\begin{abstract}
+ We apply the recently introduced aperiodic defect model (ADM) to a negatively charged monovacancy in a phosphorene monolayer.  In contrast to conventional supercell approaches, ADM treats a single defect embedded in the true non-defective crystalline mean field thereby avoiding spurious defect–defect interactions and the need for charge corrections. At the same time, it reduces the calculation to a fragment, enabling the use of high-level molecular electronic-structure methods. By converging the Hartree--Fock and correlation contributions to the thermodynamic limit, we obtain a CCSD(T)/POB-VTZ-rev2 benchmark estimate of 0.91~eV for the formation energy of the negatively charged monovacancy in the (5|9) configuration. The excitation energy to the lowest singlet in-gap excited state of this defect at the EOM-CCSD/POB-VTZ-rev2 level is found to be 1.95~eV. Overall, ADM provides a highly promising route toward quantitatively accurate and systematically improvable descriptions of defects in solids and on surfaces, bridging the gap between solid-state physics and molecular quantum chemistry. 
 \end{abstract}
+  
+ 
 
 \maketitle
 
@@ -203,7 +202,7 @@ Here $E_P$ is the energy of the phosphorus atom in its quartet ground state, and
 \end{eqnarray}
 where $E_{\rm relax}$ is the energy of the fully relaxed structure and $E_{\rm relax\,18}$ is that of the structure with only the 18 atoms relaxed. With our $4\times3$ supercell and the B3LYP-D3 functional, $\Delta E_{\rm 18\uparrow relax}$ amounts to $-0.146$ eV.
 
-We note that the definition (\ref{eq:energy}) corresponds to the reaction-energy formulation commonly used in quantum chemistry. It is equivalent to the standard solid-state expression for the defect formation energy\cite{Freysoldt2014Review}, provided that the phosphorus chemical potential is chosen as the energy of an isolated phosphorus atom. In contrast to periodic supercell approaches, charge and finite-size corrections are not required in ADM, as the latter does not involve periodic replication of the defect or the introduction of a compensating background charge. Instead, the charged defect explicitly experiences the electrostatic potential of the non-defective crystal through the embedding.
+We note that the definition (\ref{eq:energy}) corresponds to the reaction-energy formulation commonly used in quantum chemistry. It is equivalent to the standard solid-state expression for the defect formation energy\cite{Freysoldt2014Review}, provided that the phosphorus chemical potential is chosen as the energy of an isolated phosphorus atom. In contrast to periodic supercell approaches, charge and finite-size corrections are not required in ADM, as the latter does not involve periodic replication of the defect or the introduction of a compensating background charge. Instead, the charged defect explicitly experiences the electrostatic potential of the non-defective crystal through the embedding. Furthermore, ADM provides direct access to the total energy of the charged species in its optimized structure, $E^{\rm ADM}_{\rm defect}$, eliminating the need for indirect and inherently approximate evaluations of the electron affinity based on defect-level energies.
 
 
 
@@ -272,7 +271,10 @@ Coupled-cluster calculations at the CCSD(T) level are too expensive to be perfor
 We are now in a position to provide a CCSD(T)/POB-VTZ-rev2 estimate of the formation energy of a negatively charged monovacancy in phosphorene. The Hartree--Fock component, $\Delta E^{\rm ADM}({\rm HF})$, extrapolated to the thermodynamic limit, amounts to 0.51~eV. The correlation contribution, $\Delta E^{\rm ADM}({\rm corr})$, is evaluated as the MP2 result obtained with the 89-atom fragment (0.803~eV), combined with a CCSD(T) correction to MP2 computed with the 32-atom fragment (-0.256~eV), yielding a total correlation contribution of 0.543~eV. Finally, the relaxation correction beyond the 18-atom fragment, $\Delta E_{\rm 18\uparrow \rm relax}$, is -0.146~eV (see Sec.~\ref{sec:struct}). 
 Combining these contributions gives a final estimate of the defect formation energy of $E_{\rm form} = 0.905$~eV$\approx 21$kcal/mol.
 This moderate formation energy indicates that vacancy formation in phosphorene is  energetically accessible, suggesting that such defects can form under realistic conditions in appreciable concentrations, which is in agreement with experimental studies.\cite{Kiraly2017_BPvacancies,Fang2021_BPchargedVacancy}
-The present value lies at the lower end of the range obtained from DFT supercell calculations for neutral vacancies (0.9 eV -- 1.7 eV).\cite{Hu2015_PhosphoreneVacancies,Naik2020_PRMaterials_PhosphoreneDefects,Rijal2021_PhosphoreneVacancy} Our benchmark, however, refers to the negatively charged defect and involves a higher-level treatment of electron correlation.
+
+
+The present value lies at the lower end of the range obtained from DFT supercell calculations for neutral vacancies (0.9--1.7~eV).\cite{Hu2015_PhosphoreneVacancies,Naik2020_PRMaterials_PhosphoreneDefects,Rijal2021_PhosphoreneVacancy} The formation energy of charged vacancies in the periodic framework is typically evaluated indirectly via the electron affinity, obtained as a Kohn-Sham or quasiparticle energy level associated with the defect relative to the valence band maximum, and added to the formation energy of the corresponding neutral defect. Depending on the theoretical level (DFT or DFT+GW) and the functional employed, the electron affinity has been reported in the range of 0.6--1.0~eV.\cite{Naik2020_PRMaterials_PhosphoreneDefects,Rijal2021_PhosphoreneVacancy}
+In contrast, ADM enables a direct evaluation of formation energies for both neutral and charged defects on the same footing, as differences between total energies, while also allowing the use of high-level quantum-chemical methods for their accurate determination.
 
 
 Conservative error bars associated with the remaining finite-size effects in each of the three components, $\Delta E^{\rm ADM}({\rm HF})$, $\Delta E^{\rm ADM}({\rm corr})$, and $\Delta E_{\rm 18\uparrow \rm relax}$, are expected to be below 0.1~eV. The dominant source of uncertainty is likely the basis-set incompleteness. While the POB-VTZ-rev2 basis provides a reasonable description for periodic DFT calculations, it is not guaranteed that the results are near the basis-set limit,\cite{TS_embedding} particularly for the correlation energy. In principle, ADM allows the use of different, potentially much larger molecular basis sets for the fragment calculations. However, this capability is not yet implemented in the present code, and a systematic assessment of the basis-set incompleteness error is therefore deferred to future work.
@@ -366,7 +368,27 @@ Interestingly, the LADC(2) excitation energies are noticeably lower (by as much 
 
 \section{Conclusions and outlook}
 
-In this work we demonstrate that 
+In this work, we demonstrate that ADM represents a highly promising paradigm for studying defects in periodic systems. It provides a framework with several key advantages over the standard supercell approach. Most notably, it treats a {\it single} defect rather than a periodically repeated array of defects, eliminating spurious interactions between defect images and removing the need for charge-correction schemes in the case of charged defects. Furthermore, ADM reduces a periodic problem to an effective molecular-like calculation on a fragment of atoms with a modified Hamiltonian and atomic-orbital-like basis set. Beyond the associated reduction in computational cost, this brings important conceptual advantages of molecular quantum chemistry, such as access to systematically improvable high-level methods, a direct access to charged, high-spin or excited defect states, the possibility of multireference approaches for strongly correlated defects, etc.
+
+
+A conceptual limitation of ADM in its current formulation is its inapplicability to defects in conducting systems. This stems from the environment–fragment partitioning based on localized occupied orbitals, which cannot be well localized in metals, rendering such physically questionable without employing prohibitively large fragments.
+
+For non-metallic systems, challenges arise for defects whose states extend deeply into the environment and induce long-range electronic or structural rearrangements, leading to slow convergence with respect to fragment size. Supercell approaches, however, may be similarly, if not more, affected by such defect delocalization.
+
+
+Our calculations for a vacancy in phosphorene demonstrate the efficiency of ADM on a realistic and challenging example, involving both ground and excited states of a charged defect in a highly polarizable semiconductor. Using ADM allowed us to provide high-level benchmark estimates for both the formation energy and the lowest excitation energy. At the same time, the calculations revealed several important aspects relevant for practical applications of ADM that remain to be addressed in future developments.
+
+First, the benefits of high-level electronic-structure methods may be partially offset by limitations of the employed basis sets. Periodic calculations are known to become numerically unstable with large atomic-orbital basis sets due to the onset of quasi-linear dependencies among the basis functions. ADM conceptually allows one to redefine the fragment basis and thus employ systematically improvable molecular basis-set hierarchies for the fragment part of the calculation. The implementation of this capability is currently underway. Another promising avenue in this respect is the extension of ADM to a transcorrelated framework.\cite{..} Recently, some of us have demonstrated for defects in silicon that a transcorrelated treatment of the fragment combined with a mean-field transcorrelated embedding allows for a substantial acceleration of basis-set convergence for defect formation energies.\cite{..}
+
+
+Second, at present the structural optimization of defects relies on DFT supercell calculations. In this respect, it would be important to generalize the ADM framework to density functional theory, including the implementation of nuclear gradients. This would not only enable the treatment of larger fragments using computationally inexpensive non-hybrid functionals, but also allow for geometry optimization directly within the ADM framework.
+
+In the phosphorene example, relatively large fragments were required to converge the HF contribution to the formation energy. Therefore, accelerating convergence with respect to fragment size is highly desirable. One possible route is to permit approximate relaxation of the environemnt due to the defect formation and incorporate its the response onto the fragment, for example within density matrix embedding theory (DMET) framework.\cite{..}
+
+In contrast, the correlation contribution in the present system converges rather rapidly with fragment size. This behavior, however, may not be general, particularly in systems where dispersion interactions play a significant role (e.g., adsorbates on surfaces). To enable the treatment of large fragments at the correlated level, it will be important to implement efficient local correlation methods or interface ADM with existing implementations.\cite{..} As the present results also demonstrate, an accurate treatment of weak pairs within the local coupled-cluster framework is essential.\cite{..}
+
+
+
 
 
 \bibliographystyle{unsrt}
